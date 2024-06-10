@@ -1,0 +1,159 @@
+body,html{
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box; 
+    background: rgb(238,174,202);
+    background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+  
+  }
+
+  .custom-navbar {
+    background-color: red; 
+  }
+  
+  .navbar-logo {
+    height: 40px; 
+  }
+  
+  .nav-link {
+    color: #333 !important; 
+    font-weight: 500;
+  }
+  
+  .nav-link:hover {
+    color: #ff6699 !important; 
+  }
+  
+  @media (max-width: 992px) {
+    .navbar-logo {
+      height: 30px; 
+    }
+  
+    .navbar-brand h5 {
+      font-size: 1.2rem; 
+    }
+  } 
+  
+.carousel-item img {
+    object-fit: cover;
+    height: 50vh; 
+    width: 100vh;
+}
+
+@media (max-width: 1000px) {
+    .welcome h1 {
+        font-size: 1.75rem;
+    }
+
+    .carousel-item img {
+        height: 50vh; 
+    }
+}
+
+
+  .welcome {
+    text-align: center;
+    background-image: url('https://www.weddingsonline.in/blog/wp-content/uploads/2016/01/27670_20150729072540901.jpg'); /* Path to your background image */
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat; 
+    width: 100%; 
+    height: 50vh; 
+    color: red;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+  
+.welcome h1 {
+    margin-bottom: 1.5rem;
+}
+.custom-navbar {
+    background-color: red; 
+    font-style:italic;
+    font-family: cursive;
+   
+  }
+  .registration-container {
+    background-color: lightpink; 
+  }
+
+.welcome .btn-success {
+    font-size: 1.25rem;
+    padding: 0.75rem 1.5rem;
+}
+
+.welcomeimg {
+    text-align: center;
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+    width: 100%; 
+    height: 50vh; 
+    color: red; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    >img{
+        width: 30%;
+        height: 100%;
+    }
+}  
+
+.welcome-background {
+      text-align: center;
+      background-image: url('https://m.media-amazon.com/images/I/51Ai-HEN15L._AC_UF1000,1000_QL80_.jpg');
+      background-size: cover; 
+      background-position: center; 
+      background-repeat: no-repeat; 
+      width: 100%; 
+      height: 50vh; 
+      color: rgb(239, 14, 14); 
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+  }
+  
+  .imgTag {
+    height: 45px; 
+  }
+
+  .container {
+    margin: 5%;
+}
+
+.table {
+    width: 100%;
+    margin: auto;
+    > th{
+        background-color: #ff6699;
+    }
+}
+
+input[type="text"] {
+    text-align: right;
+}
+
+.myButton{
+  width: 50%;
+}
+
+.myForm{
+  border: 1px solid black;
+  width: 100%;
+  height: 90vh;
+  background-color: #ff6699;
+  box-sizing: border-box;
+  padding: 1rem;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+@media (max-width: 767.98px) {
+  .align-items-center .d-flex.justify-content-end {
+    margin-top: 1rem;
+  }
+}
