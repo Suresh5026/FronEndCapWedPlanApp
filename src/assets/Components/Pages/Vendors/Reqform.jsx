@@ -11,11 +11,12 @@ import { Formik } from "formik";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
 
 
 export default function Reqform({ eventName, eventId, eventPrice, closeForm }) {
   const [events, setEvents] = useState([]);
-  const [selectedEvent, setSelectedEvent] = useState(null);
+  const [alertMessage, setAlertMessage] = useState(null);
   const token = Cookies.get("token");
  
 
@@ -23,7 +24,7 @@ export default function Reqform({ eventName, eventId, eventPrice, closeForm }) {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/events/get-events",
+          "https://backendcapwedplanappevent-9.onrender.com/api/events/get-events",
           {
             withCredentials: true,
           }
@@ -86,34 +87,42 @@ export default function Reqform({ eventName, eventId, eventPrice, closeForm }) {
           return errors;
         }}
         onSubmit={(values,{ setSubmitting }) => {
-          const bookingData = {
-            ...values,
-            eventId: eventId,
-            price : eventPrice
-          };
-          
-          axios
-            .post(
-              "http://localhost:5000/api/bookings/create-booking",
-              bookingData,
-              {
-                headers: {
-                  Authorization: `Bearer ${token}`, 
-                },
-              }
-            )
-            console.log(bookingData)
-            .then((response) => {
-              console.log(response.data);
-              
-              setSubmitting(false);
-            })
-            .catch((error) => {
-              console.error(error);
-              setSubmitting(false);
-              
-            });
-            
+          try {
+            const decodedToken = jwtDecode(token);
+            const userId = decodedToken.userId;
+
+            const bookingData = {
+              ...values,
+              eventId: eventId,
+              price: eventPrice,
+              userId: userId
+            };
+
+            axios
+              .post(
+                "https://backendcapwedplanappevent-9.onrender.com/api/bookings/create-booking",
+                bookingData,
+                {
+                  headers: {
+                    Authorization: `Bearer ${token}`
+                  },
+                  withCredentials: true
+                }
+              )
+              .then((response) => {
+                console.log(response.data);
+                setSubmitting(false);
+              })
+              .catch((error) => {
+                console.error("Error creating booking:", error);
+                setSubmitting(false);
+              });
+              setAlertMessage("Registered successfully!");
+            closeForm();
+          } catch (error) {
+            console.error("Error decoding token:", error);
+            setSubmitting(false);
+          }
         }}
       >
         {({
@@ -246,6 +255,11 @@ export default function Reqform({ eventName, eventId, eventPrice, closeForm }) {
                     >
                       500+
                     </Button>
+                    <Button
+                      variant="secondary"
+                      onClick={() => setFieldValue("guests", "not require")}
+                      active={values.guests === "not require"}
+                    ></Button>
                   </ButtonGroup>
                 </Form.Group>
               </Row>

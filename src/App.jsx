@@ -9,10 +9,10 @@ import Navbar from './assets/Components/Navbars'
 import Budget from './assets/Components/Pages/Budjet'
 import Event from './assets/Components/Pages/EventPages/Event'
 import Createevent from './assets/Components/Pages/EventPages/Createevent'
-// import Editevent from './assets/Components/Pages/EventPages/Editevent'
 import { EventProvider } from './assets/Context/Eventcontext'
 import Vendors from './assets/Components/Pages/Vendors/Vendor'
 import Mybookings from './assets/Components/Pages/Vendors/Mybookings'
+import Editevent from './assets/Components/Pages/EventPages/Editevent'
 // import Reqform from './assets/Components/Pages/Vendors/Reqform'
 
 function App() {
@@ -56,7 +56,7 @@ function App() {
         }/>
         <Route path='/events/edit/:id' element={
           <Privatelayout>
-            <Createevent />
+            <Editevent />
           </Privatelayout>
         }/>
         <Route Component={Budget} path='/budget' />

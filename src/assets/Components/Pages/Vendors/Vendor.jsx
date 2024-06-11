@@ -19,7 +19,7 @@ export default function Vendors() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/events/get-events",
+          "https://backendcapwedplanappevent-9.onrender.com/api/events/get-events",
           {
             withCredentials: true,
           }

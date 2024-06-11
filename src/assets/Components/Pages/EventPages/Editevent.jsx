@@ -5,22 +5,52 @@ import { useEvent } from "../../../Context/Eventcontext";
 import { Form } from "react-bootstrap";
 import Cookies from "js-cookie";
 import axios from "axios";
+import { useState,useEffect } from "react";
+
 export default function Editevent() {
   const { fetchEvents } = useEvent();
   const navigate = useNavigate();
   const { id } = useParams();
+  // console.log(id)
+  const [initialValues, setInitialValues] = useState({
+    name: "",
+    description: "",
+    vendor: "",
+    phone: "",
+    city: "",
+    price: "",
+    image: "",
+  });
+
+  useEffect(() => {
+    const token = Cookies.get("token");
+    const fetchEventDetails = async () => {
+      try {
+        const response = await axios.get(
+          `https://backendcapwedplanappevent-9.onrender.com/api/events/get-events/${id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        const eventData = response.data.data;
+        setInitialValues(eventData);
+        console.log(eventData)
+      } catch (error) {
+        console.error("Error fetching event details:", error);
+      }
+    };
+
+    fetchEventDetails();
+  }, [id]);
   return (
     <Container>
       <Formik
-        initialValues={{
-          name: "",
-          description: "",
-          vendor: "",
-          phone: "",
-          city: "",
-          price: "",
-          image: "",
-        }}
+        initialValues={
+          initialValues
+        }
+        enableReinitialize
         validate={(values) => {
           const errors = {};
           if (!values.name) {
@@ -51,7 +81,7 @@ export default function Editevent() {
           const token = Cookies.get("token");
           try {
             const response = await axios.put(
-              "http://localhost:5000/api/events/edit-event/:id",
+              `https://backendcapwedplanappevent-9.onrender.com/api/events/edit-event/${id}`,
               values,
               {
                 headers: {
@@ -193,7 +223,7 @@ export default function Editevent() {
               </Form.Control.Feedback>
             </Form.Group>
             <Button variant="primary" type="submit" disabled={isSubmitting}>
-              Create Event
+              Update Event
             </Button>
           </Form>
         )}

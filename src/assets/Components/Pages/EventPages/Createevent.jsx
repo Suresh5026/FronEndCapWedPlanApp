@@ -50,7 +50,7 @@ export default function Createevent() {
           const token = Cookies.get("token");
           try {
             const response = await axios.post(
-              "http://localhost:5000/api/events/create-event",
+              "https://backendcapwedplanappevent-9.onrender.com/api/events/create-event",
               values,
               {
                 headers: {

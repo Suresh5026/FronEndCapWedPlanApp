@@ -13,7 +13,7 @@ export default function Home(){
         const token = Cookies.get('token');
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/auth/current-user', {
+                const response = await axios.get('https://backendcapwedplanappevent-9.onrender.com/api/auth/current-user', {
                     withCredentials: true 
                 });
                 const userData = response.data.data;
@@ -33,12 +33,11 @@ export default function Home(){
         <div className="welcome d-flex flex-column justify-content-center align-items-center">
                 <h1>Wedding Planner App</h1>
                 <Button variant="success" onClick={() => navigate("/login")} >Get started </Button>
-            </div>
-            <br />
-            <div className="welcomeimg">
+                <div className="welcomeimg">
                 <Slides />
+                </div>
             </div>
-        
+            
         </>
     );
 }

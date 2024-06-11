@@ -11,7 +11,7 @@ export const EventProvider = ({ children }) => {
     const fetchEvents = async () => {
         const token = Cookies.get('token');
         try {
-            const response = await axios.get('http://localhost:5000/api/events/create', {
+            const response = await axios.get('https://backendcapwedplanappevent-9.onrender.com/api/events/create', {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }

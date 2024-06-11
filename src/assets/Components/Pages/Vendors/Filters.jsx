@@ -1,8 +1,8 @@
-import React, { useState,useEffect } from 'react';
+
 import Accordion from 'react-bootstrap/Accordion';
-import Cookies from 'js-cookie';
+
 import Form from 'react-bootstrap/Form';
-import axios from 'axios';
+
 
 export default function Filters({ data, selectedTags, handleTagChange }) {
   

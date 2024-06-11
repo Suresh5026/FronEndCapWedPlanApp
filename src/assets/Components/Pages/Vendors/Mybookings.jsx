@@ -13,15 +13,17 @@ export default function Mybookings(){
         "Event From Date",
         "Event To Date",
         "Guests Count",
-        "Status"
+        "Status",
+        "Cancel Request"
     ]    
     const [booking, setBookings] = useState([]);
+    
     useEffect(()=>{
         const token = Cookies.get("token");
     const fetchBookings = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/bookings/get-bookings",
+          "https://backendcapwedplanappevent-9.onrender.com/api/bookings/get-bookings",
           {
             withCredentials: true,
           }
@@ -38,6 +40,35 @@ export default function Mybookings(){
     }
 
     },[])
+
+    const handleCancel = async (id) => {
+      const token = Cookies.get("token");
+      try {
+
+      const confirmCancel = window.confirm("Are you sure you want to cancel this booking?");
+      if (!confirmCancel) {
+        return; // Exit if user does not confirm
+      }
+        await axios.put(
+          `https://backendcapwedplanappevent-9.onrender.com/api/bookings/cancel-booking/${id}`,
+          {},
+          {
+            withCredentials: true,
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        
+        setBookings((prevBookings) =>
+          prevBookings.map((booking) =>
+            booking._id === id ? { ...booking, status: "cancelled" } : booking
+          )
+        );
+      } catch (error) {
+        console.log("Error cancelling booking:", error);
+      }
+    };
 
     return(
         <Container>
@@ -67,6 +98,13 @@ export default function Mybookings(){
               <td>{item.toDate}</td>
               <td>{item.guests}</td>
               <td>{item.status}</td>
+              <td>
+              {item.status !== "cancelled" && (
+                  <Button variant="danger" onClick={() => handleCancel(item._id)}>
+                    Cancel Booking
+                  </Button>
+                )}
+              </td>
               
             </tr>
           ))}

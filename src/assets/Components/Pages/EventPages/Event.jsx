@@ -19,13 +19,14 @@ export default function Event() {
     "Action",
   ];
   const [data, setData] = useState([]);
+  
 
   useEffect(() => {
     const token = Cookies.get("token");
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/events/get-events",
+          "https://backendcapwedplanappevent-9.onrender.com/api/events/get-events",
           {
             withCredentials: true,
           }
@@ -35,7 +36,7 @@ export default function Event() {
         setData(userData);
         const userIds = userData.map((item) => item._id);
         setIds(userIds);
-        console.log(userIds);
+        // console.log(userIds);
       } catch (error) {
         console.log("Error fetching user data:", error);
       }
@@ -45,13 +46,15 @@ export default function Event() {
       fetchData();
     }
   }, []);
+
   const [ids, setIds] = useState([]);
+  // console.log(id)
 
   const handleDelete = async (id) => {
     const token = Cookies.get("token");
     try {
       await axios.delete(
-        `http://localhost:5000/api/events/delete-event/${id}`,
+        `https://backendcapwedplanappevent-9.onrender.com/api/events/delete-event/${id}`,
         {
           withCredentials: true,
           headers: {
@@ -59,13 +62,15 @@ export default function Event() {
           },
         }
       );
-
+      
       setData((prevData) => prevData.filter((item) => item._id !== id));
       setIds((prevIds) => prevIds.filter((itemId) => itemId !== id));
+      console.log(item._id)
     } catch (error) {
       console.log("Error deleting event:", error);
     }
   };
+  
 
   return (
     <Container>
@@ -94,10 +99,10 @@ export default function Event() {
               <td>{item.price}</td>
               <td>{item.image}</td>
               <td>
-                <Button onClick={() => navigate(`/events/edit/${item.id}`)}>
+                <Button className="btn" onClick={() => navigate(`/events/edit/${item._id}`)}>
                   Edit
                 </Button>
-                <Button onClick={() => handleDelete(item._id)}>Delete</Button>
+                <Button className="btn" onClick={() => handleDelete(item._id)}>Delete</Button>
               </td>
             </tr>
           ))}

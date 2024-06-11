@@ -8,7 +8,7 @@ export const fetchCurrentUser = async () => {
     }
 
     try {
-        const response = await fetch('http://localhost:5000/api/auth/current-user', {
+        const response = await fetch('https://backendcapwedplanappevent-9.onrender.com/api/auth/current-user', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
