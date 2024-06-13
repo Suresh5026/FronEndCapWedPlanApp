@@ -4,7 +4,7 @@ export const fetchCurrentUser = async () => {
     const token = Cookies.get('token');
     if (!token) {
         console.error("No token found in cookies");
-        return;
+        return null;
     }
 
     try {
@@ -19,7 +19,7 @@ export const fetchCurrentUser = async () => {
         const data = await response.json();
         if (response.ok) {
             return data.data
-            //console.log("Current User Data:", data);
+            
         } else {
             console.log("Failed to fetch user:", data.message);
         }
