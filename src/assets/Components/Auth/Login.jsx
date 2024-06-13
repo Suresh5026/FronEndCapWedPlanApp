@@ -57,7 +57,7 @@ export default function Login() {
                     console.log(result);
                     if (result.message === "Login Successful") {
                       setIsLoggedIn(true);
-                      Cookies.set("token", result.token, { expires: 1 / 24 });
+                      Cookies.set("token", result.token, { expires: 1 });
                       navigate("/");
                     } else {
                       console.error("Login failed:", result.message);
