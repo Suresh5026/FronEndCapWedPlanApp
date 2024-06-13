@@ -13,13 +13,21 @@ import { EventProvider } from './assets/Context/Eventcontext'
 import Vendors from './assets/Components/Pages/Vendors/Vendor'
 import Mybookings from './assets/Components/Pages/Vendors/Mybookings'
 import Editevent from './assets/Components/Pages/EventPages/Editevent'
-// import Reqform from './assets/Components/Pages/Vendors/Reqform'
+import Decorations from './assets/Components/Pages/EventPages/Decorations'
+import Deco from './assets/Components/Pages/EventPages/Decorate/Deco'
+import Createdeco from './assets/Components/Pages/EventPages/Decorate/Createdeco'
+import { DecoProvider } from './assets/Context/Decocontext'
+import Editdecoration from './assets/Components/Pages/EventPages/Decorate/Editdecoration'
+import Planning from './assets/Components/Pages/EventPages/Planning'
+import { PlanProvider } from './assets/Context/Plancontex'
 
 function App() {
   
 
   return (
     <>
+    <PlanProvider>
+    <DecoProvider>
     <EventProvider>
     <div>
       <Navbar />
@@ -49,6 +57,26 @@ function App() {
             <Event />
           </Privatelayout>
         }/>
+        <Route path='/decorate' element={
+          <Privatelayout>
+            <Deco />
+          </Privatelayout>
+        }/>
+        <Route path='/decorate/create-decoration' element={
+          <Privatelayout>
+            <Createdeco />
+          </Privatelayout>
+        }/>
+        <Route path='/decorate/edit-decoration/:id' element={
+          <Privatelayout>
+            <Editdecoration />
+          </Privatelayout>
+        }/>
+        <Route path='/decorations' element={
+          <Privatelayout>
+            <Decorations />
+          </Privatelayout>
+        }/>
         <Route path='/events/create' element={
           <Privatelayout>
             <Createevent />
@@ -61,10 +89,13 @@ function App() {
         }/>
         <Route Component={Budget} path='/budget' />
         <Route Component={Vendors} path='/vendors' />
+        <Route Component={Planning} path='/planning' />
         
       </Routes>
     
     </EventProvider>
+    </DecoProvider>
+    </PlanProvider>
     </>
   )
 }

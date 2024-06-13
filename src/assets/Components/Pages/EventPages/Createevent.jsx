@@ -50,7 +50,7 @@ export default function Createevent() {
           const token = Cookies.get("token");
           try {
             const response = await axios.post(
-              "https://backendcapwedplanappevent-9.onrender.com/api/events/create-event",
+              "http://localhost:8000/events/create-event",
               values,
               {
                 headers: {
@@ -200,6 +200,9 @@ export default function Createevent() {
             </Form.Group>
             <Button variant="primary" type="submit" disabled={isSubmitting}>
               Create Event
+            </Button>
+            <Button variant="primary" onClick={()=>navigate('/events')}>
+              Back
             </Button>
           </Form>
         )}

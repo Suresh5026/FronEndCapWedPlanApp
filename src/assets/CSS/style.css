@@ -52,7 +52,7 @@ body,html{
 
   .welcome {
     text-align: center;
-    background-image: url('https://www.weddingsonline.in/blog/wp-content/uploads/2016/01/27670_20150729072540901.jpg'); /* Path to your background image */
+    background-image: url('/home.jpg');
     background-size: cover; 
     background-position: center;
     background-repeat: no-repeat; 

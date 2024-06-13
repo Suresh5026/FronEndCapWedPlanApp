@@ -1,11 +1,11 @@
 import { Container, Button } from "react-bootstrap";
 import { Formik } from "formik";
-import { useNavigate,useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEvent } from "../../../Context/Eventcontext";
 import { Form } from "react-bootstrap";
 import Cookies from "js-cookie";
 import axios from "axios";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 
 export default function Editevent() {
   const { fetchEvents } = useEvent();
@@ -27,7 +27,7 @@ export default function Editevent() {
     const fetchEventDetails = async () => {
       try {
         const response = await axios.get(
-          `https://backendcapwedplanappevent-9.onrender.com/api/events/get-events/${id}`,
+          `http://localhost:8000/events/get-events/${id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -36,7 +36,7 @@ export default function Editevent() {
         );
         const eventData = response.data.data;
         setInitialValues(eventData);
-        console.log(eventData)
+        console.log(eventData);
       } catch (error) {
         console.error("Error fetching event details:", error);
       }
@@ -47,9 +47,7 @@ export default function Editevent() {
   return (
     <Container>
       <Formik
-        initialValues={
-          initialValues
-        }
+        initialValues={initialValues}
         enableReinitialize
         validate={(values) => {
           const errors = {};
@@ -81,7 +79,7 @@ export default function Editevent() {
           const token = Cookies.get("token");
           try {
             const response = await axios.put(
-              `https://backendcapwedplanappevent-9.onrender.com/api/events/edit-event/${id}`,
+              `http://localhost:8000/events/edit-event/${id}`,
               values,
               {
                 headers: {
@@ -118,6 +116,7 @@ export default function Editevent() {
                 name="name"
                 onChange={handleChange}
                 onBlur={handleBlur}
+                style={{ textAlign: "start" }}
                 value={values.name}
                 isInvalid={touched.name && !!errors.name}
               />
@@ -133,6 +132,7 @@ export default function Editevent() {
                 aria-describedby="nameHelp"
                 name="description"
                 onChange={handleChange}
+                style={{ textAlign: "start" }}
                 onBlur={handleBlur}
                 value={values.description}
                 isInvalid={touched.description && !!errors.description}
@@ -150,6 +150,7 @@ export default function Editevent() {
                 name="vendor"
                 onChange={handleChange}
                 onBlur={handleBlur}
+                style={{ textAlign: "start" }}
                 value={values.vendor}
                 isInvalid={touched.vendor && !!errors.vendor}
               />
@@ -166,6 +167,7 @@ export default function Editevent() {
                 name="city"
                 onChange={handleChange}
                 onBlur={handleBlur}
+                style={{ textAlign: "start" }}
                 value={values.city}
                 isInvalid={touched.city && !!errors.city}
               />
@@ -182,6 +184,7 @@ export default function Editevent() {
                 name="phone"
                 onChange={handleChange}
                 onBlur={handleBlur}
+                style={{ textAlign: "start" }}
                 value={values.phone}
                 isInvalid={touched.phone && !!errors.phone}
               />
@@ -199,6 +202,7 @@ export default function Editevent() {
                 name="image"
                 onChange={handleChange}
                 onBlur={handleBlur}
+                style={{ textAlign: "start" }}
                 value={values.image}
                 isInvalid={touched.image && !!errors.image}
               />
@@ -215,6 +219,7 @@ export default function Editevent() {
                 name="price"
                 onChange={handleChange}
                 onBlur={handleBlur}
+                style={{ textAlign: "start" }}
                 value={values.price}
                 isInvalid={touched.price && !!errors.price}
               />
@@ -224,6 +229,9 @@ export default function Editevent() {
             </Form.Group>
             <Button variant="primary" type="submit" disabled={isSubmitting}>
               Update Event
+            </Button>
+            <Button variant="primary" onClick={()=>navigate('/events')}>
+              Cancel
             </Button>
           </Form>
         )}

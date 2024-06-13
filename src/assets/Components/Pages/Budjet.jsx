@@ -1,91 +1,109 @@
-import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Table, Form } from 'react-bootstrap';
+import Table from "react-bootstrap/Table";
+import { Form } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import Cookies from "js-cookie";
+import axios from "axios";
 
-const Budget = () => {
-    const initialBudget = [
-        { category: 'Ceremony', budget: 0, cost: 0, paid: 0 },
-        { category: 'Wedding party', budget: 0, cost: 0, paid: 0 },
-        { category: 'Clothing and Beauty', budget: 0, cost: 0, paid: 0 },
-        { category: 'Catering', budget: 0, cost: 0, paid: 0 },
-        { category: 'Transportation', budget: 0, cost: 0, paid: 0 },
-        { category: 'Accommodation', budget: 0, cost: 0, paid: 0 },
-        { category: 'Invitations', budget: 0, cost: 0, paid: 0 },
-    ];
+export default function Budget() {
+  
+  const initialBudget = [
+    { category: "Ceremony", budget: 0, cost: 0, paid: 0 },
+    { category: "Wedding party", budget: 0, cost: 0, paid: 0 },
+    { category: "Clothing and Beauty", budget: 0, cost: 0, paid: 0 },
+    { category: "Catering", budget: 0, cost: 0, paid: 0 },
+    { category: "Transportation", budget: 0, cost: 0, paid: 0 },
+    { category: "Accommodation", budget: 0, cost: 0, paid: 0 },
+    { category: "Invitations", budget: 0, cost: 0, paid: 0 },
+  ];
+  const [user, setUser] = useState(null);
 
-    const [budget, setBudget] = useState(() => {
-        const savedBudget = JSON.parse(localStorage.getItem('budget'));
-        return savedBudget || initialBudget;
-    });
+  const [budget, setBudget] = useState(initialBudget);
 
-    useEffect(() => {
-        localStorage.setItem('budget', JSON.stringify(budget));
-    }, [budget]);
-
-    const handleChange = (index, field, value) => {
-        const updatedBudget = [...budget];
-        updatedBudget[index][field] = parseFloat(value.replace(/[^0-9.-]+/g, ''));
-        setBudget(updatedBudget);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const token = Cookies.get('token');
+        if (!token) return; 
+        const response = await axios.get('http://localhost:8000/auth/current-user', {
+          withCredentials: true 
+        });
+        const userData = response.data.data;
+        setUser(userData);
+        const savedBudget = JSON.parse(localStorage.getItem(`budget-${userData._id}`));
+        setBudget(savedBudget || initialBudget);
+      } catch (error) {
+        console.log("Error fetching user data:", error);
+      }
     };
 
-    const calculateTotal = (field) => {
-        return budget.reduce((total, item) => total + item[field], 0);
-    };
+    fetchData();
+  }, []);
 
-    return (
-        <Container className='container'>
-            <Row>
-                <Col>
-                    <Table bordered className='table'>
-                        <thead>
-                            <tr>
-                                <th colSpan="2">Total</th>
-                                <th>{calculateTotal('budget').toFixed(2)}</th>
-                                <th>{calculateTotal('cost').toFixed(2)}</th>
-                                <th>{calculateTotal('paid').toFixed(2)}</th>
-                                <th>{(calculateTotal('cost') - calculateTotal('paid')).toFixed(2)}</th>
-                            </tr>
-                            <tr>
-                                <th>Category</th>
-                                <th>Budget</th>
-                                <th>Cost</th>
-                                <th>Paid</th>
-                                <th>Owed</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {budget.map((item, index) => (
-                                <tr key={index}>
-                                    <td>{item.category}</td>
-                                    <td>
-                                        <Form.Control
-                                            type="number"
-                                            value={item.budget}
-                                            onChange={(e) => handleChange(index, 'budget', e.target.value)}
-                                        />
-                                    </td>
-                                    <td>
-                                        <Form.Control
-                                            type="number"
-                                            value={item.cost}
-                                            onChange={(e) => handleChange(index, 'cost', e.target.value)}
-                                        />
-                                    </td>
-                                    <td>
-                                        <Form.Control
-                                            type="number"
-                                            value={item.paid}
-                                            onChange={(e) => handleChange(index, 'paid', e.target.value)}
-                                        />
-                                    </td>
-                                    <td>{(item.cost - item.paid).toFixed(2)}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </Table>
-                </Col>
-            </Row>
-        </Container>
-    );
+  useEffect(() => {
+    if (!user) return; 
+    localStorage.setItem(`budget-${user._id}`, JSON.stringify(budget));
+  }, [user, budget]);
+
+  const handleChange = (index, field, value) => {
+    const updatedBudget = [...budget];
+    updatedBudget[index][field] = parseFloat(value.replace(/[^0-9.-]+/g, ""));
+    setBudget(updatedBudget);
 };
 
-export default Budget;
+  const calculateTotal = (field) => {
+    return budget.reduce((total, item) => total + item[field], 0);
+};
+
+
+  return (
+    <Table striped bordered hover>
+      <thead>
+        <tr>
+          <th colSpan="2">Total</th>
+          <th>{calculateTotal("budget").toFixed(2)}</th>
+          <th>{calculateTotal("cost").toFixed(2)}</th>
+          <th>{calculateTotal("paid").toFixed(2)}</th>
+          <th>
+            {(calculateTotal("cost") - calculateTotal("paid")).toFixed(2)}
+          </th>
+        </tr>
+        <tr>
+          <th>#</th>
+          <th>Budget</th>
+          <th>Cost</th>
+          <th>Paid</th>
+          <th>Owed</th>
+        </tr>
+      </thead>
+      <tbody>
+        {budget.map((item, index) => (
+          <tr key={`${item.category}-${index}`}>
+            <td>{item.category}</td>
+            <td>
+              <Form.Control
+                type="number"
+                value={item.budget}
+                onChange={(e) => handleChange(index, "budget", e.target.value)}
+              />
+            </td>
+            <td>
+              <Form.Control
+                type="number"
+                value={item.cost}
+                onChange={(e) => handleChange(index, "cost", e.target.value)}
+              />
+            </td>
+            <td>
+              <Form.Control
+                type="number"
+                value={item.paid}
+                onChange={(e) => handleChange(index, "paid", e.target.value)}
+              />
+            </td>
+            <td>{(item.cost - item.paid).toFixed(2)}</td>
+          </tr>
+        ))}
+      </tbody>
+    </Table>
+  );
+}

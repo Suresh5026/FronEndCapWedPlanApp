@@ -48,7 +48,7 @@ export default function Register() {
               onSubmit={(values, { setSubmitting, setErrors }) => {
                 setSubmitting(true);
                 axios
-                  .post("https://backendcapwedplanappevent-9.onrender.com/api/auth/register", values)
+                  .post("http://localhost:8000/auth/register", values)
                   .then((response) => {
                     const result = response.data;
                     if (result.message === "User Registered Successfully") {
@@ -105,7 +105,7 @@ export default function Register() {
                       onBlur={handleBlur}
                       value={values.name}
                       isInvalid={touched.name && !!errors.name}
-                      style={{textAlign:"start"}}
+                      style={{ textAlign: "start" }}
                     />
                     <Form.Control.Feedback type="invalid">
                       {errors.name}

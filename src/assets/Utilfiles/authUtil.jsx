@@ -8,7 +8,7 @@ export const fetchCurrentUser = async () => {
     }
 
     try {
-        const response = await fetch('https://backendcapwedplanappevent-9.onrender.com/api/auth/current-user', {
+        const response = await fetch('http://localhost:8000/auth/current-user', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -19,7 +19,7 @@ export const fetchCurrentUser = async () => {
         const data = await response.json();
         if (response.ok) {
             return data.data
-            console.log("Current User Data:", data);
+            //console.log("Current User Data:", data);
         } else {
             console.log("Failed to fetch user:", data.message);
         }

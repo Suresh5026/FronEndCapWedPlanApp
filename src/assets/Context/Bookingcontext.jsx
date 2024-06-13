@@ -13,7 +13,7 @@ export const BookingProvider = ({ children }) => {
         const fetchBookings = async () => {
             const token = Cookies.get('token');
             try {
-                const response = await axios.get('https://backendcapwedplanappevent-9.onrender.com/api/bookings', {
+                const response = await axios.get('http://localhost:8000/bookings', {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }

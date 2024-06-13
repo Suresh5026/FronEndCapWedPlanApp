@@ -5,39 +5,37 @@ import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-export default function Event() {
+export default function Deco() {
   const navigate = useNavigate();
-  const columnHeadings = [
+  const decoHeadings = [
     "S.No",
-    "Name",
-    "Description",
-    "Vendor",
-    "Phone",
-    "City",
-    "Price",
+    "Title",
+    "text",
     "Image",
+    "Price",
+    "User Choice",
     "Action",
   ];
-  const [data, setData] = useState([]);
-
+  const [deco, setDeco] = useState([]);
+  const [ids, setIds] = useState([]);
   useEffect(() => {
     const token = Cookies.get("token");
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8000/events/get-events",
+          "http://localhost:8000/decorate/get-decoration",
           {
             withCredentials: true,
           }
         );
-        const userData = response.data.data;
+        const decoData = response.data.data;
 
-        setData(userData);
-        const userIds = userData.map((item) => item._id);
+        setDeco(decoData);
+        const userIds = decoData.map((item) => item._id);
         setIds(userIds);
         // console.log(userIds);
       } catch (error) {
-        console.log("Error fetching user data:", error);
+        console.log("Error fetching decoration data:", error);
       }
     };
 
@@ -46,62 +44,64 @@ export default function Event() {
     }
   }, []);
 
-  const [ids, setIds] = useState([]);
-  // console.log(id)
-
   const handleDelete = async (id) => {
     const token = Cookies.get("token");
     try {
-      await axios.delete(`http://localhost:8000/events/delete-event/${id}`, {
-        withCredentials: true,
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      await axios.delete(
+        `http://localhost:8000/decorate/delete-decoration/${id}`,
+        {
+          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
-      setData((prevData) => prevData.filter((item) => item._id !== id));
+      setDeco((prevData) => prevData.filter((item) => item._id !== id));
       setIds((prevIds) => prevIds.filter((itemId) => itemId !== id));
       console.log(item._id);
     } catch (error) {
-      console.log("Error deleting event:", error);
+      console.log("Error deleting decoration:", error);
     }
   };
 
   return (
     <Container>
       <div className="d-flex justify-content-between p-1">
-        <h1>Events</h1>
-        <Button onClick={() => navigate("/events/create")}>Create Event</Button>
+        <h1>Decoration Data</h1>
+        <Button onClick={() => navigate("/decorate/create-decoration")}>
+          Create Decoration
+        </Button>
       </div>
 
       <Table responsive>
         <thead>
           <tr>
-            {columnHeadings.map((heading, index) => (
+            {decoHeadings.map((heading, index) => (
               <th key={index}>{heading}</th>
             ))}
           </tr>
         </thead>
         <tbody>
-          {data.map((item, index) => (
-            <tr key={index}>
+          {deco.map((item, index) => (
+            <tr key={`${item.title}-${index}`}>
               <td>{index + 1}</td>
-              <td>{item.name}</td>
-              <td>{item.description}</td>
-              <td>{item.vendor}</td>
-              <td>{item.phone}</td>
-              <td>{item.city}</td>
+              <td>{item.title}</td>
+              <td>{item.text}</td>
               <td>{item.price}</td>
               <td>{item.image}</td>
+              <td>{item.selection}</td>
               <td>
                 <Button
                   className="btn"
-                  onClick={() => navigate(`/events/edit/${item._id}`)}
+                  onClick={() =>
+                    navigate(`/decorate/edit-decoration/${item._id}`)
+                  }
                 >
-                  Edit
+                  Edit Decoration
                 </Button>
                 <Button className="btn" onClick={() => handleDelete(item._id)}>
-                  Delete
+                  Delete Decoration
                 </Button>
               </td>
             </tr>

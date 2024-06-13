@@ -19,14 +19,14 @@ export default function Vendors() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://backendcapwedplanappevent-9.onrender.com/api/events/get-events",
+          "http://localhost:8000/events/get-events",
           {
             withCredentials: true,
           }
         );
         const getData = response.data.data;
         setData(getData);
-        setFilteredData(getData); // Initialize with all data
+        setFilteredData(getData); 
       } catch (error) {
         console.log("Error fetching user data:", error);
       }

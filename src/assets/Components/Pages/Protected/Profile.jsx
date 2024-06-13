@@ -1,45 +1,53 @@
-import React from 'react';
-import { Container, Row, Col, Card, Button } from 'react-bootstrap';
-export default function Profile(){
-    return (
-        <Container className="mt-5">
-            <Row>
-                <Col md={4}>
-                    <Card>
-                        <Card.Img variant="top" src="https://via.placeholder.com/150" />
-                        <Card.Body>
-                            <Card.Title>John Doe</Card.Title>
-                            <Card.Text>
-                                Wedding Planner
-                            </Card.Text>
-                            <Button variant="primary">Edit Profile</Button>
-                        </Card.Body>
-                    </Card>
-                </Col>
-                <Col md={8}>
-                    <h2>About Me</h2>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet.
-                    </p>
-                    <h2>Services</h2>
-                    <ul>
-                        <li>Wedding planning</li>
-                        <li>Decoration</li>
-                        <li>Vendor coordination</li>
-                        <li>Event management</li>
-                    </ul>
-                    <h2>Contact Information</h2>
-                    <p>Email: john@example.com</p>
-                    <p>Phone: +1234567890</p>
-                    <h2>Reviews</h2>
-                    <div>
-                        {/* Render reviews here */}
-                        <p>No reviews yet.</p>
-                    </div>
-                </Col>
-            </Row>
-        </Container>
-    );
+import { Container, Row, Col, Card, Button } from "react-bootstrap";
+import { useState, useEffect } from "react";
+import Cookies from "js-cookie";
+import axios from "axios";
+
+export default function Profile() {
+  const [user, setUser] = useState([]);
+  useEffect(() => {
+    const token = Cookies.get("token");
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:8000/auth/current-user",
+          {
+            withCredentials: true,
+          }
+        );
+        const userData = response.data.data;
+        console.log(userData);
+        setUser(userData);
+      } catch (error) {
+        console.log("Error fetching user data:", error);
+      }
+    };
+
+    if (token) {
+      fetchData();
+    }
+  }, []);
+
+  return (
+    <Container className="mt-5">
+      <Row>
+        <Col md={4}>
+          <Card>
+            <Card.Body>
+              <Card.Title>
+                <h1>
+                  {user.name
+                    ? user.name.charAt(0).toUpperCase() + user.name.slice(1)
+                    : ""}
+                </h1>
+              </Card.Title>
+              <Card.Text>
+                <p>Email: {user.email}</p>
+              </Card.Text>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+    </Container>
+  );
 }
-
-

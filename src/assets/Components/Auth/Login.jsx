@@ -45,7 +45,7 @@ export default function Login() {
               }}
               onSubmit={(values, { setSubmitting }) => {
                 setSubmitting(true);
-                fetch("https://backendcapwedplanappevent-9.onrender.com/api/auth/login", {
+                fetch("http://localhost:8000/auth/login", {
                   method: "POST",
                   headers: {
                     "Content-Type": "application/json",
@@ -57,7 +57,7 @@ export default function Login() {
                     console.log(result);
                     if (result.message === "Login Successful") {
                       setIsLoggedIn(true);
-                      Cookies.set("token", result.token, { expires: 1 / 24 }); // Setting token in cookies with expiry of 7 days
+                      Cookies.set("token", result.token, { expires: 1 / 24 });
                       navigate("/");
                     } else {
                       console.error("Login failed:", result.message);

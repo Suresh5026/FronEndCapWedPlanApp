@@ -8,15 +8,17 @@ import { useNavigate } from "react-router-dom";
 export default function Home(){
     const [user, setUser] = useState(null);
     const navigate = useNavigate();
+    
 
     useEffect(() => {
         const token = Cookies.get('token');
         const fetchData = async () => {
             try {
-                const response = await axios.get('https://backendcapwedplanappevent-9.onrender.com/api/auth/current-user', {
+                const response = await axios.get('http://localhost:8000/auth/current-user', {
                     withCredentials: true 
                 });
                 const userData = response.data.data;
+                // console.log(userData)
                 setUser(userData);
             } catch (error) {
                 console.log("Error fetching user data:", error);
@@ -32,7 +34,11 @@ export default function Home(){
         <>
         <div className="welcome d-flex flex-column justify-content-center align-items-center">
                 <h1>Wedding Planner App</h1>
-                <Button variant="success" onClick={() => navigate("/login")} >Get started </Button>
+                {user ? (
+          <h2 style={{color:"green"}}>Welcome {user.name} !!!</h2>
+        ) : (
+          <Button variant="success" onClick={() => navigate("/login")}>Get started</Button>
+        )}
                 <div className="welcomeimg">
                 <Slides />
                 </div>
