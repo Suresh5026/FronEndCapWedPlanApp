@@ -27,7 +27,7 @@ export default function Editevent() {
     const fetchEventDetails = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8000/events/get-events/${id}`,
+          `https://backendcapwedplanappevent-9.onrender.com/events/get-events/${id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -79,7 +79,7 @@ export default function Editevent() {
           const token = Cookies.get("token");
           try {
             const response = await axios.put(
-              `http://localhost:8000/events/edit-event/${id}`,
+              `https://backendcapwedplanappevent-9.onrender.com/events/edit-event/${id}`,
               values,
               {
                 headers: {

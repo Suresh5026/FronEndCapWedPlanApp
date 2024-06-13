@@ -24,7 +24,7 @@ export default function Editdecoration() {
     const fetchDecorationDetails = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8000/decorate/get-decoration/${id}`,
+          `https://backendcapwedplanappevent-9.onrender.com/decorate/get-decoration/${id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -69,7 +69,7 @@ export default function Editdecoration() {
           const token = Cookies.get("token");
           try {
             const response = await axios.post(
-              `http://localhost:8000/decorate/edit-decoration/${id}`,
+              `https://backendcapwedplanappevent-9.onrender.com/decorate/edit-decoration/${id}`,
               values,
               {
                 headers: {

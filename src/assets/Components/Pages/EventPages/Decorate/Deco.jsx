@@ -23,7 +23,7 @@ export default function Deco() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8000/decorate/get-decoration",
+          "https://backendcapwedplanappevent-9.onrender.com/decorate/get-decoration",
           {
             withCredentials: true,
           }

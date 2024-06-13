@@ -14,7 +14,7 @@ export default function Home(){
         const token = Cookies.get('token');
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:8000/auth/current-user', {
+                const response = await axios.get('https://backendcapwedplanappevent-9.onrender.com/auth/current-user', {
                     withCredentials: true 
                 });
                 const userData = response.data.data;

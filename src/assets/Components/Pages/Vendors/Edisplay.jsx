@@ -13,7 +13,7 @@ export default function Edisplay({ data }) {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8000/events/get-events",
+          "https://backendcapwedplanappevent-9.onrender.com/events/get-events",
           {
             withCredentials: true,
           }

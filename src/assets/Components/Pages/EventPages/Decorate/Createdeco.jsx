@@ -43,7 +43,7 @@ export default function Createdeco() {
           const token = Cookies.get("token");
           try {
             const response = await axios.post(
-              "http://localhost:8000/decorate/create-decoration",
+              "https://backendcapwedplanappevent-9.onrender.com/decorate/create-decoration",
               values,
               {
                 headers: {

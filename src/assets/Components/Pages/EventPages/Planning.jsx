@@ -34,7 +34,7 @@ export default function Planning() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8000/plan/get-plan",
+          "https://backendcapwedplanappevent-9.onrender.com/plan/get-plan",
           {
             withCredentials: true,
           }
@@ -111,7 +111,7 @@ export default function Planning() {
             try {
               if (editMode) {
                 await axios.put(
-                  `http://localhost:8000/plan/edit-plan/${currentItem._id}`,
+                  `https://backendcapwedplanappevent-9.onrender.com/plan/edit-plan/${currentItem._id}`,
                   values,
                   {
                     headers: {
@@ -121,7 +121,7 @@ export default function Planning() {
                 );
               } else {
                 await axios.post(
-                  "http://localhost:8000/plan/create-plan",
+                  "https://backendcapwedplanappevent-9.onrender.com/plan/create-plan",
                   values,
                   {
                     headers: {

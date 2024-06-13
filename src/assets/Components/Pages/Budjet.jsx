@@ -24,7 +24,7 @@ export default function Budget() {
       try {
         const token = Cookies.get('token');
         if (!token) return; 
-        const response = await axios.get('http://localhost:8000/auth/current-user', {
+        const response = await axios.get('https://backendcapwedplanappevent-9.onrender.com/auth/current-user', {
           withCredentials: true 
         });
         const userData = response.data.data;
