@@ -23,7 +23,7 @@ export default function Deco() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://backendcapwedplanappevent-9.onrender.com/decorate/get-decoration",
+          "https://backendcapwedplanappevent.onrender.com/decorate/get-decoration",
           {
             withCredentials: true,
           }
@@ -48,7 +48,7 @@ export default function Deco() {
     const token = Cookies.get("token");
     try {
       await axios.delete(
-        `http://localhost:8000/decorate/delete-decoration/${id}`,
+        `https://backendcapwedplanappevent.onrender.com/decorate/delete-decoration/${id}`,
         {
           withCredentials: true,
           headers: {

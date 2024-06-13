@@ -23,7 +23,7 @@ export default function Mybookings(){
     const fetchBookings = async () => {
       try {
         const response = await axios.get(
-          "https://backendcapwedplanappevent-9.onrender.com/bookings/get-bookings",
+          "https://backendcapwedplanappevent.onrender.com/bookings/get-bookings",
           {
             withCredentials: true,
           }
@@ -50,7 +50,7 @@ export default function Mybookings(){
         return; // Exit if user does not confirm
       }
         await axios.put(
-          `https://backendcapwedplanappevent-9.onrender.com/bookings/cancel-booking/${id}`,
+          `https://backendcapwedplanappevent.onrender.com/bookings/cancel-booking/${id}`,
           {},
           {
             withCredentials: true,

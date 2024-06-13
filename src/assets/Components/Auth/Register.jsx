@@ -48,7 +48,7 @@ export default function Register() {
               onSubmit={(values, { setSubmitting, setErrors }) => {
                 setSubmitting(true);
                 axios
-                  .post("https://backendcapwedplanappevent-9.onrender.com/auth/register", values)
+                  .post("https://backendcapwedplanappevent.onrender.com/auth/register", values)
                   .then((response) => {
                     const result = response.data;
                     if (result.message === "User Registered Successfully") {

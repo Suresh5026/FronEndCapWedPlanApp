@@ -14,7 +14,7 @@ export default function Decorations() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `https://backendcapwedplanappevent-9.onrender.com/decorate/get-decoration`,
+          `https://backendcapwedplanappevent.onrender.com/decorate/get-decoration`,
           {
             withCredentials: true,
           }

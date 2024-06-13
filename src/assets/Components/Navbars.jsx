@@ -18,7 +18,7 @@ export default function Navbars() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://backendcapwedplanappevent-9.onrender.com/auth/current-user",
+          "https://backendcapwedplanappevent.onrender.com/auth/current-user",
           {
             withCredentials: true,
           }

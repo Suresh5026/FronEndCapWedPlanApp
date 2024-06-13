@@ -11,7 +11,7 @@ export const DecoProvider = ({ children }) => {
     const fetchDeco = async () => {
         const token = Cookies.get('token');
         try {
-            const response = await axios.get('https://backendcapwedplanappevent-9.onrender.com/decorate/get-decoration', {
+            const response = await axios.get('https://backendcapwedplanappevent.onrender.com/decorate/get-decoration', {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }

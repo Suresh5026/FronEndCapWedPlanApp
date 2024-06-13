@@ -45,7 +45,7 @@ export default function Login() {
               }}
               onSubmit={(values, { setSubmitting }) => {
                 setSubmitting(true);
-                fetch("https://backendcapwedplanappevent-9.onrender.com/auth/login", {
+                fetch("https://backendcapwedplanappevent.onrender.com/auth/login", {
                   method: "POST",
                   headers: {
                     "Content-Type": "application/json",

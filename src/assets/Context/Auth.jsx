@@ -26,15 +26,22 @@ export default function AuthContextProvider({ children }) {
         setIsLoggedIn(true);
         try {
           const currentUser = await fetchCurrentUser();
-          setUser(currentUser);
+          if (currentUser) {
+            setUser(currentUser);
+          } else {
+            setIsLoggedIn(false);
+            Cookies.remove('token');
+          }
         } catch (error) {
           console.error("Failed to fetch current user", error);
           setIsLoggedIn(false);
           setUser(null);
+          Cookies.remove('token');
         }
       } else {
         setIsLoggedIn(false);
         setUser(null);
+        Cookies.remove('token');
       }
     };
 
