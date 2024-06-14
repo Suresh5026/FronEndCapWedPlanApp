@@ -1,13 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  Form,
-  Col,
-  InputGroup,
-  Button,
-  Row,
-  Container,
-  Table,
-} from "react-bootstrap";
+import { Form, Col, InputGroup, Button, Row, Container, Table } from "react-bootstrap";
 import { Formik } from "formik";
 import axios from "axios";
 import { usePlan } from "../../../Context/Plancontex";
@@ -15,7 +7,6 @@ import { usePlan } from "../../../Context/Plancontex";
 export default function Planning() {
   const { fetchPlan } = usePlan();
   const [data, setData] = useState([]);
-  const [ids, setIds] = useState([]);
   const [editMode, setEditMode] = useState(false);
   const [currentItem, setCurrentItem] = useState(null);
 
@@ -30,27 +21,17 @@ export default function Planning() {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          "https://backendcapwedplanappevent.onrender.com/plan/get-plan",
-          {
-            headers: {
-              'Authorization': `Bearer ${token}`
-          },
-          
-          }
-        );
-        const userPlan = response.data.data;
-        setData(userPlan);
-        const userIds = userPlan.map((item) => item._id);
-        setIds(userIds);
-      } catch (error) {
-        console.log("Error fetching Plan data:", error);
-      }
-    };
-
     if (token) {
+      const fetchData = async () => {
+        try {
+          const response = await axios.get("http://localhost:8000/plan/get-plan", {
+            headers: { Authorization: `Bearer ${token}` },
+          });
+          setData(response.data.data);
+        } catch (error) {
+          console.error("Error fetching Plan data:", error);
+        }
+      };
       fetchData();
     }
   }, []);
@@ -58,16 +39,12 @@ export default function Planning() {
   const handleDelete = async (id) => {
     const token = localStorage.getItem("token");
     try {
-      await axios.delete(`https://backendcapwedplanappevent.onrender.com/plan/delete-plan/${id}`, {
-        withCredentials: true,
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+      await axios.delete(`http://localhost:8000/plan/delete-plan/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
       });
       setData((prevData) => prevData.filter((item) => item._id !== id));
-      setIds((prevIds) => prevIds.filter((itemId) => itemId !== id));
     } catch (error) {
-      console.log("Error deleting plan:", error);
+      console.error("Error deleting plan:", error);
     }
   };
 
@@ -81,56 +58,38 @@ export default function Planning() {
     setCurrentItem(null);
   };
 
+  const initialValues = {
+    event_name: currentItem ? currentItem.event_name : "",
+    event_date: currentItem ? currentItem.event_date : "",
+    event_todos: currentItem ? currentItem.event_todos : "",
+    selection: currentItem ? currentItem.selection : "",
+  };
+
   return (
     <div>
       <Container className="d-flex justify-content-center">
         <Formik
-          enableReinitialize={true}
-          initialValues={{
-            event_name: currentItem ? currentItem.event_name : "",
-            event_date: currentItem ? currentItem.event_date : "",
-            event_todos: currentItem ? currentItem.event_todos : "",
-            selection: currentItem ? currentItem.selection : "",
-          }}
+          enableReinitialize
+          initialValues={initialValues}
           validate={(values) => {
             const errors = {};
-            if (!values.event_name) {
-              errors.event_name = "Required";
-            }
-            if (!values.event_date) {
-              errors.event_date = "Required";
-            }
-            if (!values.event_todos) {
-              errors.event_todos = "Required";
-            }
-            if (!values.selection) {
-              errors.selection = "Required";
-            }
+            if (!values.event_name) errors.event_name = "Required";
+            if (!values.event_date) errors.event_date = "Required";
+            if (!values.event_todos) errors.event_todos = "Required";
+            if (!values.selection) errors.selection = "Required";
             return errors;
           }}
           onSubmit={async (values, { setSubmitting }) => {
             const token = localStorage.getItem("token");
             try {
               if (editMode) {
-                await axios.put(
-                  `https://backendcapwedplanappevent.onrender.com/plan/edit-plan/${currentItem._id}`,
-                  values,
-                  {
-                    headers: {
-                      Authorization: `Bearer ${token}`,
-                    },
-                  }
-                );
+                await axios.put(`http://localhost:8000/plan/edit-plan/${currentItem._id}`, values, {
+                  headers: { Authorization: `Bearer ${token}` },
+                });
               } else {
-                await axios.post(
-                  "https://backendcapwedplanappevent.onrender.com/plan/create-plan",
-                  values,
-                  {
-                    headers: {
-                      Authorization: `Bearer ${token}`,
-                    },
-                  }
-                );
+                await axios.post("http://localhost:8000/plan/create-plan", values, {
+                  headers: { Authorization: `Bearer ${token}` },
+                });
               }
               fetchPlan();
               handleCancelEdit();
@@ -140,26 +99,14 @@ export default function Planning() {
             setSubmitting(false);
           }}
         >
-          {({
-            values,
-            errors,
-            touched,
-            handleChange,
-            handleBlur,
-            handleSubmit,
-            isSubmitting,
-          }) => (
+          {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
             <Form className="w-50" onSubmit={handleSubmit}>
               <Row className="mb-3">
                 <Form.Group as={Col} controlId="formGridEventName">
                   <Form.Label>Event Name</Form.Label>
                   <InputGroup>
-                    <InputGroup.Text id="inputGroup-sizing-default">
-                      Name
-                    </InputGroup.Text>
+                    <InputGroup.Text>Name</InputGroup.Text>
                     <Form.Control
-                      aria-label="Default"
-                      aria-describedby="inputGroup-sizing-default"
                       name="event_name"
                       value={values.event_name}
                       onChange={handleChange}
@@ -192,12 +139,9 @@ export default function Planning() {
                 <Form.Group as={Col} controlId="formGridEventTodos">
                   <Form.Label>Todo's</Form.Label>
                   <InputGroup>
-                    <InputGroup.Text id="inputGroup-sizing-default">
-                      Todo's
-                    </InputGroup.Text>
+                    <InputGroup.Text>Todo's</InputGroup.Text>
                     <Form.Control
                       as="textarea"
-                      aria-label="With textarea"
                       name="event_todos"
                       value={values.event_todos}
                       onChange={handleChange}
@@ -214,13 +158,12 @@ export default function Planning() {
                 <Form.Group as={Col} controlId="formGridState">
                   <Form.Label>Selection Criteria</Form.Label>
                   <Form.Select
-                    aria-label="Default select example"
                     name="selection"
                     value={values.selection}
                     onChange={handleChange}
                     onBlur={handleBlur}
                   >
-                    <option>Selection criteria</option>
+                    <option value="">Selection criteria</option>
                     <option value="1">One Day Before</option>
                     <option value="2">Marriage Day</option>
                     <option value="3">One Week Before</option>
@@ -233,20 +176,11 @@ export default function Planning() {
 
               <Row className="mb-3">
                 <Col className="d-grid gap-2">
-                  <Button
-                    variant="primary"
-                    size="lg"
-                    type="submit"
-                    disabled={isSubmitting}
-                  >
+                  <Button variant="primary" size="lg" type="submit" disabled={isSubmitting}>
                     {editMode ? "Update" : "Submit"}
                   </Button>
                   {editMode && (
-                    <Button
-                      variant="secondary"
-                      size="lg"
-                      onClick={handleCancelEdit}
-                    >
+                    <Button variant="secondary" size="lg" onClick={handleCancelEdit}>
                       Cancel
                     </Button>
                   )}
@@ -282,10 +216,7 @@ export default function Planning() {
                   <Button className="btn" onClick={() => handleEdit(item)}>
                     Edit
                   </Button>
-                  <Button
-                    className="btn"
-                    onClick={() => handleDelete(item._id)}
-                  >
+                  <Button className="btn" onClick={() => handleDelete(item._id)}>
                     Delete
                   </Button>
                 </td>

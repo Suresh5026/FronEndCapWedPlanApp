@@ -9,7 +9,7 @@ export default function Profile() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://backendcapwedplanappevent.onrender.com/auth/current-user",
+          "http://localhost:8000/auth/current-user",
           {
             headers: {
               'Authorization': `Bearer ${token}`

@@ -24,7 +24,7 @@ export default function Reqform({ eventName, eventId, eventPrice, closeForm }) {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://backendcapwedplanappevent.onrender.com/events/get-events",
+          "http://localhost:8000/events/get-events",
           {
             headers: {
               'Authorization': `Bearer ${token}`
@@ -103,7 +103,7 @@ export default function Reqform({ eventName, eventId, eventPrice, closeForm }) {
 
             axios
               .post(
-                "https://backendcapwedplanappevent.onrender.com/bookings/create-booking",
+                "http://localhost:8000/bookings/create-booking",
                 bookingData,
                 {
                   headers: {

@@ -11,7 +11,7 @@ export default function Decorations() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `https://backendcapwedplanappevent.onrender.com/decorate/get-decoration`,
+          `http://localhost:8000/decorate/get-decoration`,
           {
             headers: {
               'Authorization': `Bearer ${token}`
@@ -36,6 +36,23 @@ export default function Decorations() {
       setWishlist(JSON.parse(storedWishlist));
     }
   }, []);
+
+  const handleSelect = (item) => {
+    setWishlist((prevWishlist) => {
+      const updatedWishlist = [...prevWishlist, item];
+      localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
+      return updatedWishlist;
+    });
+  };
+
+  const handleRemove = (itemId) => {
+    setWishlist((prevWishlist) => {
+      const updatedWishlist = prevWishlist.filter((item) => item._id !== itemId);
+      localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
+      return updatedWishlist;
+    });
+  };
+
 
   
 

@@ -18,7 +18,7 @@ export default function Vendors() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://backendcapwedplanappevent.onrender.com/events/get-events",
+          "http://localhost:8000/events/get-events",
           {
             headers: {
               'Authorization': `Bearer ${token}`

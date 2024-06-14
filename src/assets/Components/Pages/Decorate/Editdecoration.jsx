@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Form } from "react-bootstrap";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { useDeco } from "../../../../Context/Decocontext";
+import { useDeco } from "../../../Context/Decocontext";
 
 export default function Editdecoration() {
   const { fetchDeco } = useDeco();
@@ -23,7 +23,7 @@ export default function Editdecoration() {
     const fetchDecorationDetails = async () => {
       try {
         const response = await axios.get(
-          `https://backendcapwedplanappevent.onrender.com/decorate/get-decoration/${id}`,
+          `http://localhost:8000/decorate/get-decoration/${id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -68,8 +68,8 @@ export default function Editdecoration() {
         onSubmit={async (values, { setSubmitting, resetForm }) => {
           const token = localStorage.getItem("token");
           try {
-            const response = await axios.post(
-              `https://backendcapwedplanappevent.onrender.com/decorate/edit-decoration/${id}`,
+            const response = await axios.put(
+              `http://localhost:8000/decorate/edit-decoration/${id}`,
               values,
               {
                 headers: {

@@ -13,7 +13,7 @@ export const BookingProvider = ({ children }) => {
         const fetchBookings = async () => {
             const token = localStorage.getItem('token');
             try {
-                const response = await axios.get('https://backendcapwedplanappevent.onrender.com/bookings', {
+                const response = await axios.get('http://localhost:8000/bookings', {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }

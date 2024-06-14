@@ -4,8 +4,7 @@ import Navbar from "react-bootstrap/Navbar";
 import { NavDropdown } from "react-bootstrap";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { Link, useNavigate } from "react-router-dom";
-
-import { useAuth } from "../Context/Auth";
+import { useAuth } from "../../../Context/Auth";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -22,7 +21,7 @@ export default function Navbars() {
           return;
         }
         const response = await axios.get(
-          "https://backendcapwedplanappevent.onrender.com/auth/current-user",
+          "http://localhost:8000/auth/current-user",
           {
             headers: {
               Authorization: `Bearer ${token}`,

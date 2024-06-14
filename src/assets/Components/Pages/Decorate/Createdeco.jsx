@@ -1,7 +1,7 @@
 import { Container, Button } from "react-bootstrap";
 import { Formik } from "formik";
 import { useNavigate } from "react-router-dom";
-import { useDeco } from "../../../../Context/Decocontext";
+import { useDeco } from "../../../Context/Decocontext";
 import { Form } from "react-bootstrap";
 import axios from "axios";
 
@@ -42,7 +42,7 @@ export default function Createdeco() {
           const token = localStorage.getItem("token");
           try {
             const response = await axios.post(
-              "https://backendcapwedplanappevent.onrender.com/decorate/create-decoration",
+              "http://localhost:8000/decorate/create-decoration",
               values,
               {
                 headers: {
