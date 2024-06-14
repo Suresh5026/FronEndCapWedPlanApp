@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from "react";
-
 import { Container, Button, Card, Row, Col } from "react-bootstrap";
-
 import axios from "axios";
-import Cookies from "js-cookie";
 
 export default function Decorations() {
   const [decoItem, setDecoItem] = useState(null);
   const [wishlist, setWishlist] = useState([]);
 
   useEffect(() => {
-    const token = Cookies.get("token");
+    const token = localStorage.getItem("token");
     const fetchData = async () => {
       try {
         const response = await axios.get(
@@ -31,7 +28,7 @@ export default function Decorations() {
       fetchData();
     }
 
-    const storedWishlist = Cookies.get("wishlist");
+    const storedWishlist = localStorage.getItem("wishlist");
     if (storedWishlist) {
       setWishlist(JSON.parse(storedWishlist));
     }
@@ -41,7 +38,7 @@ export default function Decorations() {
     if (!wishlist.some((item) => item._id === decoItem._id)) {
       const updatedWishlist = [...wishlist, decoItem];
       setWishlist(updatedWishlist);
-      Cookies.set("wishlist", JSON.stringify(updatedWishlist), { expires: 7 });
+      localStorage.setItem("wishlist", JSON.stringify(updatedWishlist), { expires: 7 });
       alert(`${decoItem.title} added to your wishlist!`);
     }
   };
@@ -49,7 +46,7 @@ export default function Decorations() {
   const handleRemove = (id) => {
     const updatedWishlist = wishlist.filter((item) => item._id !== id);
     setWishlist(updatedWishlist);
-    Cookies.set("wishlist", JSON.stringify(updatedWishlist), { expires: 7 });
+    localStorage.setItem("wishlist", JSON.stringify(updatedWishlist), { expires: 7 });
   };
 
   if (!decoItem) {

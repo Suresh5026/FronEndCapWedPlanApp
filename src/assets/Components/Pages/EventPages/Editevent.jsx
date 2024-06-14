@@ -3,7 +3,6 @@ import { Formik } from "formik";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEvent } from "../../../Context/Eventcontext";
 import { Form } from "react-bootstrap";
-import Cookies from "js-cookie";
 import axios from "axios";
 import { useState, useEffect } from "react";
 
@@ -23,7 +22,7 @@ export default function Editevent() {
   });
 
   useEffect(() => {
-    const token = Cookies.get("token");
+    const token = localStorage.getItem("token");
     const fetchEventDetails = async () => {
       try {
         const response = await axios.get(
@@ -76,7 +75,7 @@ export default function Editevent() {
           return errors;
         }}
         onSubmit={async (values, { setSubmitting }) => {
-          const token = Cookies.get("token");
+          const token = localStorage.getItem("token");
           try {
             const response = await axios.put(
               `https://backendcapwedplanappevent.onrender.com/events/edit-event/${id}`,

@@ -3,7 +3,6 @@ import { Container, Row, Col } from 'react-bootstrap';
 import Edisplay from './Edisplay';
 import Filters from './Filters';
 import { useState, useEffect } from 'react';
-import Cookies from 'js-cookie';
 import axios from 'axios';
 import SearchEvents from './SearchEvent';
 
@@ -15,7 +14,7 @@ export default function Vendors() {
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
-    const token = Cookies.get("token");
+    const token = localStorage.getItem("token");
     const fetchData = async () => {
       try {
         const response = await axios.get(

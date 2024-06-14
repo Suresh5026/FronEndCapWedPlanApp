@@ -3,7 +3,6 @@ import { Formik } from "formik";
 import { useNavigate } from "react-router-dom";
 import { useDeco } from "../../../../Context/Decocontext";
 import { Form } from "react-bootstrap";
-import Cookies from "js-cookie";
 import axios from "axios";
 
 export default function Createdeco() {
@@ -40,7 +39,7 @@ export default function Createdeco() {
           return errors;
         }}
         onSubmit={async (values, { setSubmitting, resetForm }) => {
-          const token = Cookies.get("token");
+          const token = localStorage.getItem("token");
           try {
             const response = await axios.post(
               "https://backendcapwedplanappevent.onrender.com/decorate/create-decoration",

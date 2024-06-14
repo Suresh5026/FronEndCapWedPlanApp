@@ -3,7 +3,7 @@ import { Formik } from "formik";
 import { useNavigate } from "react-router-dom";
 import { useEvent } from "../../../Context/Eventcontext";
 import { Form } from "react-bootstrap";
-import Cookies from "js-cookie";
+
 import axios from "axios";
 export default function Createevent() {
   const { fetchEvents } = useEvent();
@@ -47,7 +47,7 @@ export default function Createevent() {
           return errors;
         }}
         onSubmit={async (values, { setSubmitting }) => {
-          const token = Cookies.get("token");
+          const token = localStorage.getItem("token");
           try {
             const response = await axios.post(
               "https://backendcapwedplanappevent.onrender.com/events/create-event",

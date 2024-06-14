@@ -1,7 +1,6 @@
 import { Card, Button, Row, Col, Container } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import Cookies from "js-cookie";
 import Reqform from "./Reqform";
 export default function Edisplay({ data }) {
   const [alldata, setAllData] = useState([]);
@@ -9,7 +8,7 @@ export default function Edisplay({ data }) {
   const [selectedEvent, setSelectedEvent] = useState(null);
 
   useEffect(() => {
-    const token = Cookies.get("token");
+    const token = localStorage.getItem("token");
     const fetchData = async () => {
       try {
         const response = await axios.get(

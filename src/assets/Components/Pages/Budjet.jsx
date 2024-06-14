@@ -1,7 +1,6 @@
 import Table from "react-bootstrap/Table";
 import { Form } from "react-bootstrap";
 import React, { useState, useEffect } from "react";
-import Cookies from "js-cookie";
 import axios from "axios";
 
 export default function Budget() {
@@ -22,7 +21,7 @@ export default function Budget() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const token = Cookies.get('token');
+        const token = localStorage.getItem('token');
         if (!token) return; 
         const response = await axios.get('https://backendcapwedplanappevent.onrender.com/auth/current-user', {
           withCredentials: true 

@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from 'react';
-import Cookies from 'js-cookie';
+
 import axios from 'axios';
 const DecoContext = createContext();
 
@@ -9,7 +9,7 @@ export const DecoProvider = ({ children }) => {
     const [deco, setDeco] = useState([]);
 
     const fetchDeco = async () => {
-        const token = Cookies.get('token');
+        const token = localStorage.getItem('token');
         try {
             const response = await axios.get('https://backendcapwedplanappevent.onrender.com/decorate/get-decoration', {
                 headers: {

@@ -1,4 +1,4 @@
-import Cookies from "js-cookie";
+
 import { useNavigate } from "react-router-dom";
 import { useEffect,useState } from "react";
 
@@ -7,7 +7,7 @@ const Privatelayout = ({ children }) => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const token = Cookies.get("token");
+        const token = localStorage.getItem("token");
         if (!token) {
             navigate("/login");
         }else{

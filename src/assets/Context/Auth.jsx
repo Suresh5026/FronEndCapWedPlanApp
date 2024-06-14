@@ -2,7 +2,7 @@ import { useState, createContext, useContext, useEffect } from "react";
 import PropTypes from "prop-types";
 import { useJwt } from "react-jwt";
 import { fetchCurrentUser } from "../Utilfiles/authUtil";
-import Cookies from "js-cookie";
+
 
 const AuthContext = createContext({
   isLoggedIn: false,
@@ -17,7 +17,7 @@ export const useAuth = () => useContext(AuthContext);
 export default function AuthContextProvider({ children }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
-  const token = Cookies.get('token');
+  const token = localStorage.getItem('token');
   const { decodedToken, isExpired } = useJwt(token || "");
 
   useEffect(() => {
@@ -30,18 +30,18 @@ export default function AuthContextProvider({ children }) {
             setUser(currentUser);
           } else {
             setIsLoggedIn(false);
-            Cookies.remove('token');
+            localStorage.removeItem('token');
           }
         } catch (error) {
           console.error("Failed to fetch current user", error);
           setIsLoggedIn(false);
           setUser(null);
-          Cookies.remove('token');
+          localStorage.removeItem('token');
         }
       } else {
         setIsLoggedIn(false);
         setUser(null);
-        Cookies.remove('token');
+        localStorage.removeItem('token');
       }
     };
 

@@ -10,14 +10,14 @@ import {
 import { Formik } from "formik";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import Cookies from "js-cookie";
+
 import { jwtDecode } from "jwt-decode";
 
 
 export default function Reqform({ eventName, eventId, eventPrice, closeForm }) {
   const [events, setEvents] = useState([]);
   const [alertMessage, setAlertMessage] = useState(null);
-  const token = Cookies.get("token");
+  const token = localStorage.getItem("token");
  
 
   useEffect(() => {

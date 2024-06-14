@@ -1,12 +1,11 @@
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import { useState, useEffect } from "react";
-import Cookies from "js-cookie";
 import axios from "axios";
 
 export default function Profile() {
   const [user, setUser] = useState([]);
   useEffect(() => {
-    const token = Cookies.get("token");
+    const token = localStorage.getItem("token");
     const fetchData = async () => {
       try {
         const response = await axios.get(

@@ -1,9 +1,9 @@
-import Cookies from 'js-cookie';
+
 
 export const fetchCurrentUser = async () => {
-    const token = Cookies.get('token');
+    const token = localStorage.getItem('token');
     if (!token) {
-        console.error("No token found in cookies");
+        console.error("No token found in localstorage");
         return null;
     }
 

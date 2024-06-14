@@ -2,7 +2,6 @@ import { Container, Button } from "react-bootstrap";
 import { Formik } from "formik";
 import { useNavigate, useParams } from "react-router-dom";
 import { Form } from "react-bootstrap";
-import Cookies from "js-cookie";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useDeco } from "../../../../Context/Decocontext";
@@ -20,7 +19,7 @@ export default function Editdecoration() {
   });
 
   useEffect(() => {
-    const token = Cookies.get("token");
+    const token = localStorage.getItem("token");
     const fetchDecorationDetails = async () => {
       try {
         const response = await axios.get(
@@ -66,7 +65,7 @@ export default function Editdecoration() {
           return errors;
         }}
         onSubmit={async (values, { setSubmitting, resetForm }) => {
-          const token = Cookies.get("token");
+          const token = localStorage.getItem("token");
           try {
             const response = await axios.post(
               `https://backendcapwedplanappevent.onrender.com/decorate/edit-decoration/${id}`,

@@ -1,7 +1,6 @@
 import { Button, Container } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
 import { useState, useEffect } from "react";
-import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -21,7 +20,7 @@ export default function Event() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    const token = Cookies.get("token");
+    const token = localStorage.getItem("token");
     const fetchData = async () => {
       try {
         const response = await axios.get(
@@ -50,7 +49,7 @@ export default function Event() {
   // console.log(id)
 
   const handleDelete = async (id) => {
-    const token = Cookies.get("token");
+    const token = localStorage.getItem("token");
     try {
       await axios.delete(`https://backendcapwedplanappevent.onrender.com/events/delete-event/${id}`, {
         withCredentials: true,

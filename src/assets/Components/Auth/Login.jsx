@@ -4,7 +4,6 @@ import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { Formik } from "formik";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../Context/Auth";
-import Cookies from "js-cookie";
 
 const validateEmail = (email) => {
   return !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(email);
@@ -57,7 +56,7 @@ export default function Login() {
                     console.log(result);
                     if (result.message === "Login Successful") {
                       setIsLoggedIn(true);
-                      Cookies.set("token", result.token, { expires: 1 });
+                      localStorage.setItem("token", result.token, { expires: 1 });
                       navigate("/");
                     } else {
                       console.error("Login failed:", result.message);

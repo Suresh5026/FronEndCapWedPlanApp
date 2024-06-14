@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from 'react';
-import Cookies from 'js-cookie';
+
 import axios from 'axios';
 const PlanContext = createContext();
 
@@ -9,7 +9,7 @@ export const PlanProvider = ({ children }) => {
     const [plan, setPlan] = useState([]);
 
     const fetchPlan = async () => {
-        const token = Cookies.get('token');
+        const token = localStorage.getItem('token');
         try {
             const response = await axios.get('https://backendcapwedplanappevent.onrender.com/plan/get-plan', {
                 headers: {

@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import Cookies from "js-cookie";
 import { Button } from "react-bootstrap";
 import Slides from "./Slides";
 import { useNavigate } from "react-router-dom";
@@ -11,7 +10,7 @@ export default function Home(){
     
 
     useEffect(() => {
-        const token = Cookies.get('token');
+        const token = localStorage.getItem('token');
         const fetchData = async () => {
             try {
                 const response = await axios.get('https://backendcapwedplanappevent.onrender.com/auth/current-user', {

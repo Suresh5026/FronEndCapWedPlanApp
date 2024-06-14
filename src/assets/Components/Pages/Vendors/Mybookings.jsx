@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import Cookies from "js-cookie";
 import { Button, Container, Table } from "react-bootstrap";
 import axios from "axios";
 export default function Mybookings(){
@@ -19,7 +18,7 @@ export default function Mybookings(){
     const [booking, setBookings] = useState([]);
     
     useEffect(()=>{
-        const token = Cookies.get("token");
+        const token = localStorage.getItem("token");
     const fetchBookings = async () => {
       try {
         const response = await axios.get(
@@ -42,7 +41,7 @@ export default function Mybookings(){
     },[])
 
     const handleCancel = async (id) => {
-      const token = Cookies.get("token");
+      const token = localStorage.getItem("token");
       try {
 
       const confirmCancel = window.confirm("Are you sure you want to cancel this booking?");

@@ -4,7 +4,7 @@ import Navbar from "react-bootstrap/Navbar";
 import { NavDropdown } from "react-bootstrap";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { Link, useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
+
 import { useAuth } from "../Context/Auth";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -14,7 +14,7 @@ export default function Navbars() {
   const navigate = useNavigate();
   const [user, setUser] = useState([]);
   useEffect(() => {
-    const token = Cookies.get("token");
+    const token = localStorage.getItem("token");
     const fetchData = async () => {
       try {
         const response = await axios.get(
@@ -37,14 +37,14 @@ export default function Navbars() {
   }, []);
 
   useEffect(() => {
-    const token = Cookies.get("token");
+    const token = localStorage.getItem("token");
     if (token) {
       setIsLoggedIn(true);
     }
   }, [setIsLoggedIn]);
 
   const handleLogout = () => {
-    Cookies.remove("token");
+    localStorage.removeItem("token");
     setIsLoggedIn(false);
     setUser(null);
     navigate("/login");

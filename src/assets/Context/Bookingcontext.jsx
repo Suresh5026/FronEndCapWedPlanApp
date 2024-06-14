@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import Cookies from 'js-cookie';
+
 import axios from 'axios';
 
 const BookingContext = createContext();
@@ -11,7 +11,7 @@ export const BookingProvider = ({ children }) => {
 
     useEffect(() => {
         const fetchBookings = async () => {
-            const token = Cookies.get('token');
+            const token = localStorage.getItem('token');
             try {
                 const response = await axios.get('https://backendcapwedplanappevent.onrender.com/bookings', {
                     headers: {

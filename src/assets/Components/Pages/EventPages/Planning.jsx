@@ -10,7 +10,6 @@ import {
 } from "react-bootstrap";
 import { Formik } from "formik";
 import axios from "axios";
-import Cookies from "js-cookie";
 import { usePlan } from "../../../Context/Plancontex";
 
 export default function Planning() {
@@ -30,7 +29,7 @@ export default function Planning() {
   ];
 
   useEffect(() => {
-    const token = Cookies.get("token");
+    const token = localStorage.getItem("token");
     const fetchData = async () => {
       try {
         const response = await axios.get(
@@ -54,7 +53,7 @@ export default function Planning() {
   }, []);
 
   const handleDelete = async (id) => {
-    const token = Cookies.get("token");
+    const token = localStorage.getItem("token");
     try {
       await axios.delete(`https://backendcapwedplanappevent.onrender.com/plan/delete-plan/${id}`, {
         withCredentials: true,
@@ -107,7 +106,7 @@ export default function Planning() {
             return errors;
           }}
           onSubmit={async (values, { setSubmitting }) => {
-            const token = Cookies.get("token");
+            const token = localStorage.getItem("token");
             try {
               if (editMode) {
                 await axios.put(

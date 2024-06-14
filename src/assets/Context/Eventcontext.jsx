@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useState } from 'react';
-import Cookies from 'js-cookie';
 import axios from 'axios';
 const EventContext = createContext();
 
@@ -9,7 +8,7 @@ export const EventProvider = ({ children }) => {
     const [events, setEvents] = useState([]);
 
     const fetchEvents = async () => {
-        const token = Cookies.get('token');
+        const token = localStorage.getItem('token');
         try {
             const response = await axios.get('https://backendcapwedplanappevent.onrender.com/events/get-events', {
                 headers: {
