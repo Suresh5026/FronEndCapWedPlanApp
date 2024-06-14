@@ -19,40 +19,50 @@ export default function Deco() {
   const [ids, setIds] = useState([]);
   useEffect(() => {
     const token = localStorage.getItem("token");
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          "https://backendcapwedplanappevent.onrender.com/decorate/get-decoration",
-          {
-            withCredentials: true,
-          }
-        );
-        const decoData = response.data.data;
 
-        setDeco(decoData);
-        const userIds = decoData.map((item) => item._id);
-        setIds(userIds);
-        // console.log(userIds);
-      } catch (error) {
-        console.log("Error fetching decoration data:", error);
+  const fetchData = async () => {
+    try {
+      if (!token) {
+        console.error("No token found in localStorage");
+        return;
       }
-    };
 
-    if (token) {
-      fetchData();
+      const response = await axios.get(
+        "https://backendcapwedplanappevent.onrender.comdecorate/get-decoration",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const decoData = response.data.data;
+      setDeco(decoData);
+
+      const userIds = decoData.map((item) => item._id);
+      setIds(userIds);
+      
+    } catch (error) {
+      console.log("Error fetching decoration data:", error);
     }
-  }, []);
+  };
+
+  if (token) {
+    fetchData();
+  }
+}, []);
 
   const handleDelete = async (id) => {
     const token = localStorage.getItem("token");
     try {
       await axios.delete(
-        `https://backendcapwedplanappevent.onrender.com/decorate/delete-decoration/${id}`,
+        `https://backendcapwedplanappevent.onrender.comdecorate/delete-decoration/${id}`,
         {
-          withCredentials: true,
+          
           headers: {
             Authorization: `Bearer ${token}`,
           },
+          withCredentials:true
         }
       );
 

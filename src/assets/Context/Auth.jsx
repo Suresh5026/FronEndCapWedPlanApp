@@ -22,31 +22,38 @@ export default function AuthContextProvider({ children }) {
 
   useEffect(() => {
     const getCurrentUser = async () => {
-      if (token && decodedToken && !isExpired) {
+      if ( decodedToken && !isExpired) {
         setIsLoggedIn(true);
         try {
           const currentUser = await fetchCurrentUser();
           if (currentUser) {
             setUser(currentUser);
-          } else {
-            setIsLoggedIn(false);
-            localStorage.removeItem('token');
+            console.log('hello')
+            // setIsLoggedIn(true)
+          }}catch(error){
+
           }
-        } catch (error) {
-          console.error("Failed to fetch current user", error);
-          setIsLoggedIn(false);
-          setUser(null);
-          localStorage.removeItem('token');
         }
-      } else {
-        setIsLoggedIn(false);
-        setUser(null);
-        localStorage.removeItem('token');
-      }
+      //  else {
+      //       setIsLoggedIn(false);
+      //       localStorage.removeItem('token');
+      //     }
+      //   } catch (error) {
+      //     console.error("Failed to fetch current user", error);
+      //     setIsLoggedIn(false);
+      //     setUser(null);
+      //     localStorage.removeItem('token');
+      //   }
+      // } else {
+      //   setIsLoggedIn(false);
+      //   setUser(null);
+      //   localStorage.removeItem('token');
+      // }
     };
 
+
     getCurrentUser();
-  }, [token,decodedToken, isExpired]);
+  }, [decodedToken,isExpired]);
 
   return (
     <AuthContext.Provider

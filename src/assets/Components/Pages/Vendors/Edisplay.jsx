@@ -12,9 +12,12 @@ export default function Edisplay({ data }) {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://backendcapwedplanappevent.onrender.com/events/get-events",
+          "https://backendcapwedplanappevent.onrender.comevents/get-events",
           {
-            withCredentials: true,
+            headers: {
+              'Authorization': `Bearer ${token}`
+          },
+          
           }
         );
         const userData = response.data.data;

@@ -24,9 +24,12 @@ export default function Reqform({ eventName, eventId, eventPrice, closeForm }) {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://backendcapwedplanappevent.onrender.com/events/get-events",
+          "https://backendcapwedplanappevent.onrender.comevents/get-events",
           {
-            withCredentials: true,
+            headers: {
+              'Authorization': `Bearer ${token}`
+          },
+          
           }
         );
         const eventData = response.data.data;
@@ -100,7 +103,7 @@ export default function Reqform({ eventName, eventId, eventPrice, closeForm }) {
 
             axios
               .post(
-                "https://backendcapwedplanappevent.onrender.com/bookings/create-booking",
+                "https://backendcapwedplanappevent.onrender.combookings/create-booking",
                 bookingData,
                 {
                   headers: {

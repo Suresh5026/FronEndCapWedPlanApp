@@ -42,12 +42,13 @@ export default function Createdeco() {
           const token = localStorage.getItem("token");
           try {
             const response = await axios.post(
-              "https://backendcapwedplanappevent.onrender.com/decorate/create-decoration",
+              "https://backendcapwedplanappevent.onrender.comdecorate/create-decoration",
               values,
               {
                 headers: {
                   Authorization: `Bearer ${token}`,
                 },
+                
               }
             );
             console.log(response.data.message);

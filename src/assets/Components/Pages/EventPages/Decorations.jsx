@@ -11,9 +11,12 @@ export default function Decorations() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `https://backendcapwedplanappevent.onrender.com/decorate/get-decoration`,
+          `https://backendcapwedplanappevent.onrender.comdecorate/get-decoration`,
           {
-            withCredentials: true,
+            headers: {
+              'Authorization': `Bearer ${token}`
+          },
+          
           }
         );
         const userData = response.data.data;
@@ -34,20 +37,7 @@ export default function Decorations() {
     }
   }, []);
 
-  const handleSelect = (decoItem) => {
-    if (!wishlist.some((item) => item._id === decoItem._id)) {
-      const updatedWishlist = [...wishlist, decoItem];
-      setWishlist(updatedWishlist);
-      localStorage.setItem("wishlist", JSON.stringify(updatedWishlist), { expires: 7 });
-      alert(`${decoItem.title} added to your wishlist!`);
-    }
-  };
-
-  const handleRemove = (id) => {
-    const updatedWishlist = wishlist.filter((item) => item._id !== id);
-    setWishlist(updatedWishlist);
-    localStorage.setItem("wishlist", JSON.stringify(updatedWishlist), { expires: 7 });
-  };
+  
 
   if (!decoItem) {
     return <div>Loading...</div>;

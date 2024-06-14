@@ -23,11 +23,12 @@ export default function Editdecoration() {
     const fetchDecorationDetails = async () => {
       try {
         const response = await axios.get(
-          `https://backendcapwedplanappevent.onrender.com/decorate/get-decoration/${id}`,
+          `https://backendcapwedplanappevent.onrender.comdecorate/get-decoration/${id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
             },
+            
           }
         );
         const decoData = response.data.data;
@@ -68,7 +69,7 @@ export default function Editdecoration() {
           const token = localStorage.getItem("token");
           try {
             const response = await axios.post(
-              `https://backendcapwedplanappevent.onrender.com/decorate/edit-decoration/${id}`,
+              `https://backendcapwedplanappevent.onrender.comdecorate/edit-decoration/${id}`,
               values,
               {
                 headers: {

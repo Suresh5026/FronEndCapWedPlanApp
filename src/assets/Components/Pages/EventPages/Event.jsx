@@ -24,9 +24,12 @@ export default function Event() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://backendcapwedplanappevent.onrender.com/events/get-events",
+          "https://backendcapwedplanappevent.onrender.comevents/get-events",
           {
-            withCredentials: true,
+            headers: {
+              'Authorization': `Bearer ${token}`
+          },
+           
           }
         );
         const userData = response.data.data;
@@ -51,7 +54,7 @@ export default function Event() {
   const handleDelete = async (id) => {
     const token = localStorage.getItem("token");
     try {
-      await axios.delete(`https://backendcapwedplanappevent.onrender.com/events/delete-event/${id}`, {
+      await axios.delete(`https://backendcapwedplanappevent.onrender.comevents/delete-event/${id}`, {
         withCredentials: true,
         headers: {
           Authorization: `Bearer ${token}`,

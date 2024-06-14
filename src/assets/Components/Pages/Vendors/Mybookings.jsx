@@ -22,9 +22,12 @@ export default function Mybookings(){
     const fetchBookings = async () => {
       try {
         const response = await axios.get(
-          "https://backendcapwedplanappevent.onrender.com/bookings/get-bookings",
+          "https://backendcapwedplanappevent.onrender.combookings/get-bookings",
           {
-            withCredentials: true,
+            headers: {
+              'Authorization': `Bearer ${token}`
+          },
+          
           }
         );
         const bookingData = response.data.data;
@@ -49,7 +52,7 @@ export default function Mybookings(){
         return; // Exit if user does not confirm
       }
         await axios.put(
-          `https://backendcapwedplanappevent.onrender.com/bookings/cancel-booking/${id}`,
+          `https://backendcapwedplanappevent.onrender.combookings/cancel-booking/${id}`,
           {},
           {
             withCredentials: true,

@@ -11,10 +11,12 @@ export const DecoProvider = ({ children }) => {
     const fetchDeco = async () => {
         const token = localStorage.getItem('token');
         try {
-            const response = await axios.get('https://backendcapwedplanappevent.onrender.com/decorate/get-decoration', {
+            const response = await axios.get('https://backendcapwedplanappevent.onrender.comdecorate/get-decoration', {
+                method:'GET',
                 headers: {
                     Authorization: `Bearer ${token}`
-                }
+                },
+                withCredentials:true
             });
             setDeco(response.data.data);
         } catch (error) {

@@ -9,9 +9,12 @@ export default function Profile() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://backendcapwedplanappevent.onrender.com/auth/current-user",
+          "https://backendcapwedplanappevent.onrender.comauth/current-user",
           {
-            withCredentials: true,
+            headers: {
+              'Authorization': `Bearer ${token}`
+          },
+          withCredentials: true 
           }
         );
         const userData = response.data.data;
@@ -41,7 +44,7 @@ export default function Profile() {
                 </h1>
               </Card.Title>
               <Card.Text>
-                <p>Email: {user.email}</p>
+                Email: {user.email}
               </Card.Text>
             </Card.Body>
           </Card>

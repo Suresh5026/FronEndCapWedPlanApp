@@ -17,10 +17,16 @@ export default function Navbars() {
     const token = localStorage.getItem("token");
     const fetchData = async () => {
       try {
+        if (!token) {
+          console.error("No token found in localStorage");
+          return;
+        }
         const response = await axios.get(
-          "https://backendcapwedplanappevent.onrender.com/auth/current-user",
+          "https://backendcapwedplanappevent.onrender.comauth/current-user",
           {
-            withCredentials: true,
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           }
         );
         const userData = response.data.data;
@@ -101,7 +107,11 @@ export default function Navbars() {
                       <Nav.Link as={Link} to="/vendors" className="nav-link">
                         Vendors
                       </Nav.Link>
-                      <Nav.Link as={Link} to="/decorations" className="nav-link">
+                      <Nav.Link
+                        as={Link}
+                        to="/decorations"
+                        className="nav-link"
+                      >
                         Decoration
                       </Nav.Link>
                       <Nav.Link as={Link} to="/bookings" className="nav-link">

@@ -13,7 +13,10 @@ export default function Home(){
         const token = localStorage.getItem('token');
         const fetchData = async () => {
             try {
-                const response = await axios.get('https://backendcapwedplanappevent.onrender.com/auth/current-user', {
+                const response = await axios.get('https://backendcapwedplanappevent.onrender.comauth/current-user', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    },
                     withCredentials: true 
                 });
                 const userData = response.data.data;

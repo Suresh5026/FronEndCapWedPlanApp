@@ -44,7 +44,7 @@ export default function Login() {
               }}
               onSubmit={(values, { setSubmitting }) => {
                 setSubmitting(true);
-                fetch("https://backendcapwedplanappevent.onrender.com/auth/login", {
+                fetch("https://backendcapwedplanappevent.onrender.comauth/login", {
                   method: "POST",
                   headers: {
                     "Content-Type": "application/json",
@@ -56,7 +56,8 @@ export default function Login() {
                     console.log(result);
                     if (result.message === "Login Successful") {
                       setIsLoggedIn(true);
-                      localStorage.setItem("token", result.token, { expires: 1 });
+                      localStorage.setItem("token", result.token);
+                      console.log(result.token)
                       navigate("/");
                     } else {
                       console.error("Login failed:", result.message);
