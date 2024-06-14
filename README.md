@@ -1,19 +1,29 @@
---WeddingWise - Event Management App--
+# Wedding Wise Event Management Application Front End
 
----I have created Wedding wise Event Management App ---
+# Technologies
 
----In this Project I have implemented the following functionalities step by step---
+...React JS
 
--- step 1 : To creating the Navbar Layouts such Home, Vendor, Events, Budget, Login, Logout etc., --
+...Context 
 
--- Login and Register functionality successfully worked in frontend--
+...Formik
 
----App allows to create different different user to accessing the app---
+...Axios
 
----In Vendor page I have to showing all created events---
+...Events handling 
 
----User can book the Events and the Booking details will be available on My Booking Page with the status---
+...Styles - Bootstrap, React Bootstrap and CSS
 
----Budget componet is helpful monitoring the wedding expenses and other details--
+# Functionalities
 
----User can user Filter option search option to finding the necessary Vendors data easily---
+...Admin user can perform CRUD operation for Events, Bookings, Decoration and Planning
+
+---Normal user can able booking the event using event form, cancel the event.
+
+---Budjet component is useful tracking the budjet
+
+---Planning is helpful what are the task happen on that day.
+
+---Profile page Im just showing logged in user and his Email ID
+
+---Filter and Search functionalities available on vendor pages to handling easily.

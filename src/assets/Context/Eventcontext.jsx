@@ -10,7 +10,7 @@ export const EventProvider = ({ children }) => {
     const fetchEvents = async () => {
         const token = localStorage.getItem('token');
         try {
-            const response = await axios.get('http://localhost:8000/events/get-events', {
+            const response = await axios.get('https://backendcapwedplanappevent.onrender.com/events/get-events', {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }

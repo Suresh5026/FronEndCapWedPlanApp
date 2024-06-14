@@ -42,7 +42,7 @@ export default function Createdeco() {
           const token = localStorage.getItem("token");
           try {
             const response = await axios.post(
-              "http://localhost:8000/decorate/create-decoration",
+              "https://backendcapwedplanappevent.onrender.com/decorate/create-decoration",
               values,
               {
                 headers: {

@@ -24,7 +24,7 @@ export default function Planning() {
     if (token) {
       const fetchData = async () => {
         try {
-          const response = await axios.get("http://localhost:8000/plan/get-plan", {
+          const response = await axios.get("https://backendcapwedplanappevent.onrender.com/plan/get-plan", {
             headers: { Authorization: `Bearer ${token}` },
           });
           setData(response.data.data);
@@ -39,7 +39,7 @@ export default function Planning() {
   const handleDelete = async (id) => {
     const token = localStorage.getItem("token");
     try {
-      await axios.delete(`http://localhost:8000/plan/delete-plan/${id}`, {
+      await axios.delete(`https://backendcapwedplanappevent.onrender.com/plan/delete-plan/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setData((prevData) => prevData.filter((item) => item._id !== id));
@@ -83,11 +83,11 @@ export default function Planning() {
             const token = localStorage.getItem("token");
             try {
               if (editMode) {
-                await axios.put(`http://localhost:8000/plan/edit-plan/${currentItem._id}`, values, {
+                await axios.put(`https://backendcapwedplanappevent.onrender.com/plan/edit-plan/${currentItem._id}`, values, {
                   headers: { Authorization: `Bearer ${token}` },
                 });
               } else {
-                await axios.post("http://localhost:8000/plan/create-plan", values, {
+                await axios.post("https://backendcapwedplanappevent.onrender.com/plan/create-plan", values, {
                   headers: { Authorization: `Bearer ${token}` },
                 });
               }

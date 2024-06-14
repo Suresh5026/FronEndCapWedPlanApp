@@ -11,7 +11,7 @@ export const DecoProvider = ({ children }) => {
     const fetchDeco = async () => {
         const token = localStorage.getItem('token');
         try {
-            const response = await axios.get('http://localhost:8000/decorate/get-decoration', {
+            const response = await axios.get('https://backendcapwedplanappevent.onrender.com/decorate/get-decoration', {
                 method:'GET',
                 headers: {
                     Authorization: `Bearer ${token}`
