@@ -33,7 +33,7 @@ export default function Planning() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://backendcapwedplanappevent.onrender.complan/get-plan",
+          "https://backendcapwedplanappevent.onrender.com/plan/get-plan",
           {
             headers: {
               'Authorization': `Bearer ${token}`
@@ -58,7 +58,7 @@ export default function Planning() {
   const handleDelete = async (id) => {
     const token = localStorage.getItem("token");
     try {
-      await axios.delete(`https://backendcapwedplanappevent.onrender.complan/delete-plan/${id}`, {
+      await axios.delete(`https://backendcapwedplanappevent.onrender.com/plan/delete-plan/${id}`, {
         withCredentials: true,
         headers: {
           Authorization: `Bearer ${token}`,
@@ -113,7 +113,7 @@ export default function Planning() {
             try {
               if (editMode) {
                 await axios.put(
-                  `https://backendcapwedplanappevent.onrender.complan/edit-plan/${currentItem._id}`,
+                  `https://backendcapwedplanappevent.onrender.com/plan/edit-plan/${currentItem._id}`,
                   values,
                   {
                     headers: {
@@ -123,7 +123,7 @@ export default function Planning() {
                 );
               } else {
                 await axios.post(
-                  "https://backendcapwedplanappevent.onrender.complan/create-plan",
+                  "https://backendcapwedplanappevent.onrender.com/plan/create-plan",
                   values,
                   {
                     headers: {

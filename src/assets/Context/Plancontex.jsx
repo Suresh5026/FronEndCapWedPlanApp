@@ -11,7 +11,7 @@ export const PlanProvider = ({ children }) => {
     const fetchPlan = async () => {
         const token = localStorage.getItem('token');
         try {
-            const response = await axios.get('https://backendcapwedplanappevent.onrender.complan/get-plan', {
+            const response = await axios.get('https://backendcapwedplanappevent.onrender.com/plan/get-plan', {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }

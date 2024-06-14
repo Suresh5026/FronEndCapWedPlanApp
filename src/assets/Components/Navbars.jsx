@@ -22,7 +22,7 @@ export default function Navbars() {
           return;
         }
         const response = await axios.get(
-          "https://backendcapwedplanappevent.onrender.comauth/current-user",
+          "https://backendcapwedplanappevent.onrender.com/auth/current-user",
           {
             headers: {
               Authorization: `Bearer ${token}`,

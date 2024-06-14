@@ -28,7 +28,7 @@ export default function Deco() {
       }
 
       const response = await axios.get(
-        "https://backendcapwedplanappevent.onrender.comdecorate/get-decoration",
+        "https://backendcapwedplanappevent.onrender.com/decorate/get-decoration",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -56,7 +56,7 @@ export default function Deco() {
     const token = localStorage.getItem("token");
     try {
       await axios.delete(
-        `https://backendcapwedplanappevent.onrender.comdecorate/delete-decoration/${id}`,
+        `https://backendcapwedplanappevent.onrender.com/decorate/delete-decoration/${id}`,
         {
           
           headers: {

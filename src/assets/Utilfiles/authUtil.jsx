@@ -7,7 +7,7 @@ export const fetchCurrentUser = async () => {
     }
 
     try {
-        const response = await fetch('https://backendcapwedplanappevent.onrender.comauth/current-user', {
+        const response = await fetch('https://backendcapwedplanappevent.onrender.com/auth/current-user', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

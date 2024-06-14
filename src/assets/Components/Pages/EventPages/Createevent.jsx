@@ -50,7 +50,7 @@ export default function Createevent() {
           const token = localStorage.getItem("token");
           try {
             const response = await axios.post(
-              "https://backendcapwedplanappevent.onrender.comevents/create-event",
+              "https://backendcapwedplanappevent.onrender.com/events/create-event",
               values,
               {
                 headers: {

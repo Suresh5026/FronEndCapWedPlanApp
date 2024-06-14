@@ -23,7 +23,7 @@ export default function Budget() {
       try {
         const token = localStorage.getItem('token');
         if (!token) return; 
-        const response = await axios.get('https://backendcapwedplanappevent.onrender.comauth/current-user', {
+        const response = await axios.get('https://backendcapwedplanappevent.onrender.com/auth/current-user', {
           headers: {
             'Authorization': `Bearer ${token}`
         },
