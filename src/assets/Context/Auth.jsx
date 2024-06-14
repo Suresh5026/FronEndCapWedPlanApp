@@ -22,7 +22,7 @@ export default function AuthContextProvider({ children }) {
 
   useEffect(() => {
     const getCurrentUser = async () => {
-      if (decodedToken && !isExpired) {
+      if (token && decodedToken && !isExpired) {
         setIsLoggedIn(true);
         try {
           const currentUser = await fetchCurrentUser();
@@ -46,7 +46,7 @@ export default function AuthContextProvider({ children }) {
     };
 
     getCurrentUser();
-  }, [decodedToken, isExpired]);
+  }, [token,decodedToken, isExpired]);
 
   return (
     <AuthContext.Provider
